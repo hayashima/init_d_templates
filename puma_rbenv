@@ -19,7 +19,6 @@ APP_ROOT="$APP_PATH/current"
 
 # The PID and LOCK files used by puma and sidekiq
 UPID=$APP_ROOT/tmp/pids/puma.pid
-ULOCK=/var/lock/subsys/$NAME
 
 # The options to use when running puma
 #OPTS="-F $APP_ROOT/config/puma.rb"
@@ -43,8 +42,6 @@ start() {
   # Start puma
   echo -n $"Starting $NAME: "
   su - $USER -c "$CMD"
-  puma=$?
-  [ $puma -eq 0 ] && touch $ULOCK
   echo
 
   return $puma
@@ -56,8 +53,6 @@ stop() {
   # Stop puma
   echo -n $"Stopping $NAME: "
   killproc -p $UPID
-  puma=$?
-  [ $puma -eq 0 ] && rm -f $ULOCK
   echo
 
   return $puma
