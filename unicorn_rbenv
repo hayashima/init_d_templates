@@ -40,7 +40,7 @@ cd $APP_ROOT || exit 1
 
 
 sig () {
-        test -s "$PID" && ps ax | awk '{ print $1 }' | grep $PID && kill -$1 `cat $PID`
+        test -s "$PID" && ps ax | awk '{ print $1 }' | grep `cat $PID` && kill -$1 `cat $PID`
 }
 
 
